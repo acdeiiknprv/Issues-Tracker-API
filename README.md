@@ -112,22 +112,22 @@ This project has been containerized and is available on Docker Hub for distribut
 ### Pulling the Image
 To pull the image from Docker Hub, use the following command:
 
-===sh===
+```sh
 docker pull acdeiiknprv2/issues-tracker:v1.0
-===sh===
+```
 
 ### Running the Docker Container
 Once the image is pulled, run the container using the command below, replacing `<local-port>` with the port number you wish to use on your local machine, and `<container-port>` with the port number the application inside the container is using:
 
-===sh===
+```sh
 docker run -p <local-port>:<container-port> acdeiiknprv2/issues-tracker:v1.0
-===sh===
+```
 
 Example:
 
-===sh===
+```sh
 docker run -p 3000:3000 acdeiiknprv2/issues-tracker:v1.0
-===sh===
+```
 
 ## Contact
 
