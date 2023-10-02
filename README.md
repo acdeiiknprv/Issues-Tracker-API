@@ -12,8 +12,6 @@ This project is a RESTful API built with Node.js, Express, and MongoDB. It serve
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - You have installed Node.js.
-- You have installed MongoDB.
-- You have a basic understanding of JavaScript and Node.js.
 
 ## Installation and Setup
 1. **Clone the repository**
@@ -22,7 +20,7 @@ Before you begin, ensure you have met the following requirements:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd ./sitemate_backend_challenge
+   cd ./sitemate_backend_challenge/
    ```
 3. **Install dependencies**
     ```sh
@@ -109,4 +107,4 @@ npm test
 
 ## Contact
 
-**Project Maintainer:** [Kevin Picard] - [kevin.picard.au@gmail.com](mailto:kevin.picard.au@gmail.com) - [<a href="tel:0475564651">0475 564 651</a>]
+**Project Maintainer:** Kevin Picard - [kevin.picard.au@gmail.com](mailto:kevin.picard.au@gmail.com) - [<a href="tel:0475564651">0475 564 651</a>]
