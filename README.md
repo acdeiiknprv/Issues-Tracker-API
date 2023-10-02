@@ -12,8 +12,6 @@ This project is a RESTful API built with Node.js, Express, and MongoDB. It serve
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - You have installed Node.js.
-- You have installed MongoDB.
-- You have a basic understanding of JavaScript and Node.js.
 
 ## Installation and Setup
 1. **Clone the repository**
@@ -22,7 +20,7 @@ Before you begin, ensure you have met the following requirements:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd ./sitemate_backend_challenge
+   cd ./sitemate_backend_challenge/
    ```
 3. **Install dependencies**
     ```sh
@@ -107,6 +105,30 @@ npm test
 - [Express.js](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 
+## Docker Repository
+
+This project has been containerized and is available on Docker Hub for distribution. Below are the steps and commands for interacting with this Docker repository.
+
+### Pulling the Image
+To pull the image from Docker Hub, use the following command:
+
+```sh
+docker pull acdeiiknprv2/issues-tracker:v1.0
+```
+
+### Running the Docker Container
+Once the image is pulled, run the container using the command below, replacing `<local-port>` with the port number you wish to use on your local machine, and `<container-port>` with the port number the application inside the container is using:
+
+```sh
+docker run -p <local-port>:<container-port> acdeiiknprv2/issues-tracker:v1.0
+```
+
+Example:
+
+```sh
+docker run -p 3000:3000 acdeiiknprv2/issues-tracker:v1.0
+```
+
 ## Contact
 
-**Project Maintainer:** [Kevin Picard] - [kevin.picard.au@gmail.com](mailto:kevin.picard.au@gmail.com) - [<a href="tel:0475564651">0475 564 651</a>]
+**Project Maintainer:** Kevin Picard - [kevin.picard.au@gmail.com](mailto:kevin.picard.au@gmail.com) - [<a href="tel:0475564651">0475 564 651</a>]
