@@ -45,14 +45,13 @@ Before you begin, ensure you have met the following requirements:
      - `200 OK` on success, returns an array of issues.
      - `500 Internal Server Error` if there is a server error.
 
-### 2. `GET /issues/:id`
-   - **Description:** Fetch a single issue by ID.
+### 2. `GET /issues/:type`
+   - **Description:** Fetch issues by type.
    - **Parameters:** 
-     - `id` (path) – The ID of the issue to retrieve.
+     - `type` (path) – The type of the issues to retrieve.
    - **Responses:**
      - `200 OK` on success, returns the issue object.
-     - `404 Not Found` if an issue with the specified ID does not exist.
-     - `400 Bad Request` if the ID is not a valid MongoDB ObjectId.
+     - `500 Internal Server Error` if there is a server error.
 
 ### 3. `POST /issues`
    - **Description:** Create a new issue.
@@ -60,13 +59,12 @@ Before you begin, ensure you have met the following requirements:
      ```json
      {
        "title": "string",
-       "description": "string"
+       "description": "string",
+       "type": "string"
      }
      ```
    - **Responses:**
      - `201 Created` on success, returns the created issue object.
-     - `400 Bad Request` if the body is malformed or missing required parameters.
-     - `500 Internal Server Error` if there is a server error.
 
 ### 4. `PUT /issues/:id`
    - **Description:** Update an existing issue by ID.
@@ -76,7 +74,8 @@ Before you begin, ensure you have met the following requirements:
      ```json
      {
        "title": "string",
-       "description": "string"
+       "description": "string",
+       "type": "string"
      }
      ```
    - **Responses:**
@@ -110,4 +109,4 @@ npm test
 
 ## Contact
 
-**Project Maintainer:** [Kevin Picard] - [kevin.picard.au@gmail.com] - [0475 564 651]
+**Project Maintainer:** [Kevin Picard] - [kevin.picard.au@gmail.com](mailto:kevin.picard.au@gmail.com) - [<a href="tel:0475564651">0475 564 651</a>]
