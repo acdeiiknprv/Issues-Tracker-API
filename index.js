@@ -12,9 +12,10 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING, { useNewUrlParser: true, u
 ;
 
 const IssueSchema = new mongoose.Schema({
-  title: String,
-  description: String
-});
+    title: String,
+    description: String,
+    type: String
+  });
 
 const Issue = mongoose.model('Issue', IssueSchema);
 
@@ -28,9 +29,22 @@ app.post('/issues', async (req, res) => {
 });
 
 // Read Issues
+
 app.get('/issues', async (req, res) => {
     try {
-        const issues = await Issue.find({});  // Log the issues here
+        const { type } = req.params;
+        const issues = await Issue.find({ });
+        res.json(issues);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/issues/:type', async (req, res) => {
+    try {
+        const { type } = req.params;
+        const issues = await Issue.find({ type });
         res.json(issues);
     } catch (error) {
         console.error(error);
