@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://user:pass123word456@cluster0.phmoymz.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch(err => console.error('Could not connect to MongoDB Atlas', err));
 ;
