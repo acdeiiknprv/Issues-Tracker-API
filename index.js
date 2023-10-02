@@ -64,7 +64,7 @@ app.put('/issue/:id', async (req, res) => {
             return res.status(404).send('Issue with the given ID was not found');
         }
 
-        res.json(issue);
+        res.status(200).json(issue);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
