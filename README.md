@@ -22,7 +22,7 @@ Before you begin, ensure you have met the following requirements:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd sitemate_backend_challenge
+   cd ./sitemate_backend_challenge
    ```
 3. **Install dependencies**
     ```sh
