@@ -21,14 +21,11 @@ const Issue = mongoose.model('Issue', IssueSchema);
 
 app.use(bodyParser.json());
 
-// Create Issue
 app.post('/issues', async (req, res) => {
   const issue = new Issue(req.body);
   await issue.save();
   res.status(201).json(issue);
 });
-
-// Read Issues
 
 app.get('/issues', async (req, res) => {
     try {
@@ -52,16 +49,47 @@ app.get('/issues/:type', async (req, res) => {
     }
 });
 
-// Update Issue
 app.put('/issue/:id', async (req, res) => {
-  const issue = await Issue.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(issue);
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.log('Invalid ID');
+        return res.status(400).send('Invalid ID');
+    }
+    
+    try {
+        const issue = await Issue.findByIdAndUpdate(id, req.body, { new: true });
+        
+        if (!issue) {
+            return res.status(404).send('Issue with the given ID was not found');
+        }
+
+        res.json(issue);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-// Delete Issue
 app.delete('/issue/:id', async (req, res) => {
-  await Issue.findByIdAndDelete(req.params.id);
-  res.status(204).send();
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.log('Invalid ID');
+        return res.status(400).send('Invalid ID');
+    }
+    
+    try {
+        const issue = await Issue.findByIdAndDelete(id);
+        
+        if (!issue) {
+            return res.status(404).send('Issue with the given ID was not found');
+        }
+        res.status(204).json(issue);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 module.exports = { app, Issue };
