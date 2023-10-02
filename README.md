@@ -21,5 +21,5 @@ Delete: requests the server delete an issue
 
 Usage:
 
-node ./index.js to start server
+node ./server.js to start server
 node ./client.js to start client
