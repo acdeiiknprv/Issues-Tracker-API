@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const endpoint = 'http://localhost:3000';
+const endpoint = 'https://issue-manager-api.vercel.app/';
 const { Issue } = require('../models/issue');
 
 const IssueChecker = (issue) => {
