@@ -7,56 +7,88 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+function validateIssue(issue) {
+    const requiredFields = ['name', 'description', 'dueDate'];
+    for (const field of requiredFields) {
+        if (!issue[field]) {
+            return `${field} is required`;
+        }
+    }
+
+    const name = issue.name;
+    if (typeof name !== 'string') return "Name must be a string";
+    if (name.length < 3 || name.length > 50) return "Name must be between 3 and 50 characters";
+
+    const description = issue.description;
+    if (typeof issue.description !== 'string') return "Description must be a string";
+    if (description.length < 5 || description.length > 100) return "Description must be between 5 and 100 characters";
+    
+    const date = new Date(issue.dueDate);
+    if (!(date instanceof Date) || isNaN(date.getTime())) return "Due date must be a valid date format";
+    
+    return null;
+}
+
 mongoose.connect(process.env.MONGO_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch(err => console.error('Could not connect to MongoDB Atlas', err));
 ;
 
 const IssueSchema = new mongoose.Schema({
-    title: String,
+    name: String,
     description: String,
-    type: String
+    dueDate: Date,
+    createDate: Date,
 });
 
 const Issue = mongoose.model('Issue', IssueSchema);
 
 app.use(bodyParser.json());
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Internal Server Error');
+});
+
+app.use('/issues/:id', (req, res, next) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send('Invalid ID');
+    }
+    next();
+});
+
 app.post('/issues', async (req, res) => {
     const issue = new Issue(req.body);
+    const error = validateIssue(issue);
+    if (error) {
+        return res.status(400).send(error);
+    }
     await issue.save();
     res.status(201).json(issue);
 });
 
-app.get('/issues', async (req, res) => {
+app.get('/issues', async (req, res, next) => {
     try {
-        const { type } = req.params;
         const issues = await Issue.find({});
         res.json(issues);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        next(error);
     }
 });
 
-app.get('/issues/:type', async (req, res) => {
+app.get('/issues:id', async (req, res, next) => {
+    const id = req.params.id;
+    
     try {
-        const { type } = req.params;
-        const issues = await Issue.find({ type });
+        const issues = await Issue.find({ _id: id });
         res.json(issues);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        next(error);
     }
 });
 
-app.put('/issue/:id', async (req, res) => {
+app.put('/issues/:id', async (req, res, next) => {
     const id = req.params.id;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        console.log('Invalid ID');
-        return res.status(400).send('Invalid ID');
-    }
 
     try {
         const issue = await Issue.findByIdAndUpdate(id, req.body, { new: true });
@@ -67,18 +99,12 @@ app.put('/issue/:id', async (req, res) => {
 
         res.status(200).json(issue);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        next(error);
     }
 });
 
-app.delete('/issue/:id', async (req, res) => {
+app.delete('/issues/:id', async (req, res, next) => {
     const id = req.params.id;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        console.log('Invalid ID');
-        return res.status(400).send('Invalid ID');
-    }
 
     try {
         const issue = await Issue.findByIdAndDelete(id);
@@ -88,8 +114,7 @@ app.delete('/issue/:id', async (req, res) => {
         }
         res.status(204).json(issue);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        next(error);
     }
 });
 
