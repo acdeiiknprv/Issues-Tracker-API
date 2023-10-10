@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      { "source": "/", "destination": "/api/index.js" },
+      { "source": "/issues", "destination": "/api/issues.js" },
+      { "source": "/issues/:id", "destination": "/api/issues/[id].js" }
+    ]
+  }
+  
