@@ -1,9 +1,19 @@
 const request = require('supertest');
 const { app, Issue } = require('../index.js');
 
+const IssueChecker = (issue) => {
+  expect(issue).toHaveProperty('name').toBeInstanceOf(String);
+  expect(issue).toHaveProperty('description').toBeInstanceOf(String);
+  expect(issue).toHaveProperty('dueDate').toBeInstanceOf(Date);
+}
+
 let server;
 beforeAll(() => {
   server = app.listen(3000);
+});
+
+afterEach(async () => {
+  await Issue.deleteMany({});
 });
 
 afterAll(done => {
@@ -20,39 +30,33 @@ test('It should respond with the posted issue', async () => {
   const response = await request(app)
     .post('/issues')
     .send({
-      title: "Test Title",
+      name: "Test Title",
       description: "Test Description",
-      type: "bug"
+      dueDate: new Date("2020-01-01"),
     });
 
   expect(response.statusCode).toBe(201);
-  expect(response.body.title).toBe('Test Title');
-});
-
-test('It should respond with an array of issues of a specific type', async () => {
-  const response = await request(app).get('/issues/bug');
-  expect(response.statusCode).toBe(200);
-  expect(response.body).toBeInstanceOf(Array);
+  expect(response.body.name).toBe('Test Title');
 });
 
 test('It should update the issue', async () => {
-  const issue = new Issue({ title: 'Test Title', description: 'Test Description', type: 'bug' });
+  const issue = new Issue({ name: 'Test Title', description: 'Test Description', dueDate: new Date("2020-01-01") });
   await issue.save();
 
   const response = await request(app)
-    .put(`/issue/${issue.id}`)
+    .put(`/issues/${issue.id}`)
     .send({
-      title: 'Updated Title'
+      name: 'Updated Title'
     });
 
   expect(response.statusCode).toBe(200);
-  expect(response.body.title).toBe('Updated Title');
+  expect(response.body.name).toBe('Updated Title');
 });
 
 test('It should delete the issue', async () => {
-  const issue = new Issue({ title: 'Test Title', description: 'Test Description', type: 'bug' });
+  const issue = new Issue({ name: 'Test Title', description: 'Test Description', dueDate: new Date("2020-01-01") });
   await issue.save();
 
-  const response = await request(app).delete(`/issue/${issue.id}`);
+  const response = await request(app).delete(`/issues/${issue.id}`);
   expect(response.statusCode).toBe(204);
 });
