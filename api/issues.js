@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
             case 'GET':
                 const issues = await Issue.find({});
-                return res.json(issues);
+                return res.status(200).json(issues);
 
             default:
                 return res.status(405).end();

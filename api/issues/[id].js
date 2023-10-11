@@ -22,10 +22,13 @@ module.exports = async (req, res) => {
             case 'GET':
                 const issue = await Issue.findById(id);
                 if (!issue) return res.status(404).send('Issue not found');
-                return res.json(issue);
+                return res.status(200).json(issue);
 
             case 'PUT':
-                const updatedIssue = await Issue.findByIdAndUpdate(id, req.body, { new: true });
+                const body = req.body;
+                const error = validateIssue(new Issue(body));
+                if (error) return res.status(400).send(error);
+                const updatedIssue = await Issue.findByIdAndUpdate(id, body, { new: true });
                 if (!updatedIssue) return res.status(404).send('Issue not found');
                 return res.status(200).json(updatedIssue);
 
