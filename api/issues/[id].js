@@ -1,9 +1,8 @@
 const { Issue } = require('../../models/issue');
 const dbConnect = require('../../utils/db');
+const { validateIssue } = require('../../utils/validators');
 
 module.exports = async (req, res) => {
-    console.log(`Received ${req.method} request`);
-    // Set CORS headers
     res.setHeader('Access-Control-Max-Age', '2592000');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
