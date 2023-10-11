@@ -57,9 +57,9 @@ Before you begin, ensure you have met the following requirements:
    - **Body:**
      ```json
      {
-       "title": "string",
+       "name": "string",
        "description": "string",
-       "type": "string"
+       "dueDate": "Date"
      }
      ```
    - **Responses:**
@@ -74,9 +74,9 @@ Before you begin, ensure you have met the following requirements:
    - **Body:**
      ```json
      {
-       "title": "string",
+       "name": "string",
        "description": "string",
-       "type": "string"
+       "dueDate": "string"
      }
      ```
    - **Responses:**
