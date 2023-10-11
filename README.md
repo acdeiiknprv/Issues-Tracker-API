@@ -28,11 +28,16 @@ Before you begin, ensure you have met the following requirements:
     ```sh
     npm install
     ```
-3. **Setup you environment variables**
+4. **Setup you environment variables**
 
-4. **Start the server**
+### You have the choice between:
+5. **Start the server locally with Vercel**
     ```sh
     vercel dev
+    ```
+5. **Start the backup server**
+    ```sh
+    node ./server.js
     ```
 
 ## API Endpoints
