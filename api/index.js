@@ -2,10 +2,10 @@ module.exports = (req, res) => {
     res.status(200).send({
         message: 'Welcome to the Issue Tracker API!',
         endpoints: {
-            listIssues: '/api/issues',
+            listIssues: '/issues',
             addIssue: {
                 method: 'POST',
-                path: '/api/issues',
+                path: '/issues',
                 body: {
                     name: 'Issue Name (String)',
                     description: 'Issue Description (String)',
@@ -14,7 +14,7 @@ module.exports = (req, res) => {
             },
             updateIssue: {
                 method: 'PUT',
-                path: '/api/issues/:id',
+                path: '/issues/:id',
                 body: {
                     name: '(Optional) Updated Name',
                     description: '(Optional) Updated Description',
@@ -23,7 +23,7 @@ module.exports = (req, res) => {
             },
             deleteIssue: {
                 method: 'DELETE',
-                path: '/api/issues/:id'
+                path: '/issues/:id'
             }
         }
     });
