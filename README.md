@@ -16,11 +16,11 @@ Before you begin, ensure you have met the following requirements:
 ## Installation and Setup
 1. **Clone the repository**
    ```sh
-   git clone -b user_access https://github.com/acdeiiknprv/sitemate_backend_challenge/
+   git clone -b user_access https://github.com/acdeiiknprv/Issues-Tracker-API/
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd ./sitemate_backend_challenge/
+   cd ./Issues-Tracker-API/
    ```
 3. **Install dependencies**
     ```sh
